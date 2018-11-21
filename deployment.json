@@ -1,0 +1,26 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "",
+    "parameters": {  },
+    "variables": {  },
+    "functions": [  ],
+    "resources": [ 
+{
+     "apiVersion": "2017-05-10",
+     "name": "linkedTemplate",
+     "type": "Microsoft.Resources/deployments",
+     "properties": {
+       "mode": "Incremental",
+       "templateLink": {
+          "uri":"https://mystorageaccount.blob.core.windows.net/AzureTemplates/newStorageAccount.json",
+          "contentVersion":"1.0.0.0"
+       },
+       "parametersLink": {
+          "uri":"https://mystorageaccount.blob.core.windows.net/AzureTemplates/newStorageAccount.parameters.json",
+          "contentVersion":"1.0.0.0"
+       }
+     }
+  }
+	],
+    "outputs": {  }
+}

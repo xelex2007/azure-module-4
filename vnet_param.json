@@ -1,0 +1,31 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "value": "myvnet01"
+        },
+        "location": {
+            "value": "westeurope"
+        },
+        
+        "addressPrefix": {
+            "value": "10.0.0.0/16"
+        },
+        "subnetNameFront": {
+            "value": "front-end"
+        },
+        "subnetNameBack": {
+            "value": "back-end"
+        },
+        "subnetAddressPrefixFront": {
+            "value": "10.0.0.0/24"
+        },
+        "subnetAddressPrefixBack": {
+            "value": "10.0.1.0/24"
+        },
+        "enableDdosProtection": {
+            "value": false
+        }
+    }
+}

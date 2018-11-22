@@ -9,32 +9,43 @@
         },
        
         "location": {
-            "type": "string"
+            "type": "string",
+            "defaultvalue": "westeurope"
            
         },
         "addressPrefix": {
-            "type": "string"
+            "type": "string",
+            "defaultvalue": "10.0.0.0/16"
             
         },
         "subnetNameBack": {
-            "type": "string"
+            "type": "string",
+            "defaultvalue": "back-end"
             
         },
         "subnetNameFront": {
-            "type": "string"
+            "type": "string",
+            "defaultvalue": "front-end"
             
         },
         "subnetAddressPrefixFront": {
-            "type": "string"
+            "type": "string",
+            "defaultvalue": "10.0.0.0/24"
             
         },
         "subnetAddressPrefixBack": {
-            "type": "string"
+            "type": "string",
+            "defaultvalue": "10.0.1.0/24"
            
         },
         "enableDdosProtection": {
-            "type": "bool"
+            "type": "bool",
+            "defaultvalue": false
             
+        },
+        "publicipaddressname" : {
+            "type" : "string",
+            "defaultvalue" : "mypublicip"
         }
     },
     "resources": [
@@ -65,13 +76,26 @@
                 ],
                 "enableDdosProtection": "[parameters('enableDdosProtection')]"
             }
-        }
+        },
+        {
+            "name": "[parameters('publicipaddressname')]",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2018-08-01",
+            "location": "resourceGroup().location",
+            
+            
+            "properties": {
+              "publicIPAllocationMethod": "Dynamic",
+              "publicIPAddressVersion": "IPv4"
+            },
+            "dependson" : []
+          }
 
     ],
-    "outputs": { 
-        "name" : {
-            "type" : "string",
-            "value" : "[parameters('name')]"
-          }
-       }
+    "outputs": {
+        "resourceID": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicipaddressname'))]"
+        }
+    }
 }

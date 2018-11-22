@@ -23,13 +23,12 @@
             "type" : "string",
             "defaultvalue" : "c886c48d-fb25-41d2-95c4-690f63a28ed5"
         },
-        "secretname" : {
-            "type" : "string",
-            "defaultvalue" : "admin2018"
+        "adminname" : {
+            "type" : "string"
         },
-        "secretvalue" : {
-          "type" : "securestring",
-          "defaultvalue" : "asljkehfiouha34D"
+        "adminpassword" : {
+          "type" : "securestring"
+          
         }
        
      },
@@ -74,11 +73,11 @@
           
             
               {
-                "name": "[concat(parameters('nameofvault'),'/',parameters('secretname'))]",
+                "name": "[concat(parameters('nameofvault'),'/',parameters('adminname'))]",
                 "type": "Microsoft.KeyVault/vaults/secrets",
                 "apiVersion": "2018-02-14",
                 "properties": {
-                  "value": "[parameters('secretvalue')]",
+                  "value": "[parameters('adminpassword')]",
                   
                   "attributes": {
                   "enabled": true
@@ -93,10 +92,14 @@
         
      ],
      "outputs": { 
-         "nameofvault" : {
+         "nameofuser" : {
              "type" : "string",
-             "value" : "[parameters('nameofvault')]"
-           }
+             "value" : "[resourceId('Microsoft.KeyVault/vaults/secrets', parameters('adminname'))]"
+           },
+           "passofuser" : {
+            "type" : "string",
+            "value" : "[resourceId('Microsoft.KeyVault/vaults/secrets', parameters('adminpassword'))]"
+          }
         }
    
 }

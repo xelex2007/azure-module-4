@@ -5,10 +5,6 @@
       "namecomp" : {
         "type" : "string",
         "defaultvalue" : "proddb01"
-      },
-      "namecomp" : {
-        "type" : "string",
-        "defaultvalue" : "proddb01"
       }
     },
     "variables": {  },
@@ -18,168 +14,57 @@
             "name": "[parameters('namecomp')]",
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2018-10-01",
-            "location": "string",
+            "location": "[resourceGroup().location]",
             "tags": {},
-            "plan": {
-              "name": "string",
-              "publisher": "string",
-              "product": "string",
-              "promotionCode": "string"
-            },
+            
             "properties": {
               "hardwareProfile": {
-                "vmSize": "string"
+                "vmSize": "Standard_D2s_v3"
               },
               "storageProfile": {
-                "imageReference": {
-                  "id": "string",
-                  "publisher": "string",
-                  "offer": "string",
-                  "sku": "string",
-                  "version": "string"
-                },
+               
                 "osDisk": {
-                  "osType": "string",
-                  "encryptionSettings": {
-                    "diskEncryptionKey": {
-                      "secretUrl": "string",
-                      "sourceVault": {
-                        "id": "string"
-                      }
-                    },
-                    "keyEncryptionKey": {
-                      "keyUrl": "string",
-                      "sourceVault": {
-                        "id": "string"
-                      }
-                    },
-                    "enabled": boolean
-                  },
-                  "name": "string",
-                  "vhd": {
-                    "uri": "string"
-                  },
-                  "image": {
-                    "uri": "string"
-                  },
-                  "caching": "string",
-                  "writeAcceleratorEnabled": boolean,
-                  "diffDiskSettings": {
-                    "option": "Local"
-                  },
-                  "createOption": "string",
-                  "diskSizeGB": "integer",
-                  "managedDisk": {
-                    "id": "string",
-                    "storageAccountType": "string"
-                  }
+                  "osType": "Windows",
+                  
+                  "name": "mydisk",
+                 
+                  "createOption": "Attach",
+                  "diskSizeGB": 50
+                  
                 },
                 "dataDisks": [
                   {
-                    "lun": "integer",
-                    "name": "string",
-                    "vhd": {
-                      "uri": "string"
-                    },
-                    "image": {
-                      "uri": "string"
-                    },
-                    "caching": "string",
-                    "writeAcceleratorEnabled": boolean,
-                    "createOption": "string",
-                    "diskSizeGB": "integer",
-                    "managedDisk": {
-                      "id": "string",
-                      "storageAccountType": "string"
-                    }
+                    "lun": 1,
+                    "name": "disk1",
+                    "createOption": "Attach",
+                    "diskSizeGB": 50
                   }
                 ]
               },
-              "additionalCapabilities": {
-                "ultraSSDEnabled": boolean
-              },
+              
               "osProfile": {
-                "computerName": "string",
-                "adminUsername": "string",
-                "adminPassword": "string",
-                "customData": "string",
+                "computerName": "[parameters('namecomp')]",
+                "adminUsername": "[reference('linkedTemplatekeyvault').outputs.nameofuser.value]",
+                "adminPassword": "[reference('linkedTemplatekeyvault').outputs.passofuser.value]",
                 "windowsConfiguration": {
-                  "provisionVMAgent": boolean,
-                  "enableAutomaticUpdates": boolean,
-                  "timeZone": "string",
-                  "additionalUnattendContent": [
-                    {
-                      "passName": "OobeSystem",
-                      "componentName": "Microsoft-Windows-Shell-Setup",
-                      "settingName": "string",
-                      "content": "string"
-                    }
-                  ],
-                  "winRM": {
-                    "listeners": [
-                      {
-                        "protocol": "string",
-                        "certificateUrl": "string"
-                      }
-                    ]
-                  }
-                },
-                "linuxConfiguration": {
-                  "disablePasswordAuthentication": boolean,
-                  "ssh": {
-                    "publicKeys": [
-                      {
-                        "path": "string",
-                        "keyData": "string"
-                      }
-                    ]
-                  },
-                  "provisionVMAgent": boolean
-                },
-                "secrets": [
-                  {
-                    "sourceVault": {
-                      "id": "string"
-                    },
-                    "vaultCertificates": [
-                      {
-                        "certificateUrl": "string",
-                        "certificateStore": "string"
-                      }
-                    ]
-                  }
-                ],
-                "allowExtensionOperations": boolean
+                  "provisionVMAgent": false,
+                  "enableAutomaticUpdates": false
+                }
+                
+               
+              
               },
               "networkProfile": {
                 "networkInterfaces": [
                   {
-                    "id": "string",
+                    "id": "nic1",
                     "properties": {
-                      "primary": boolean
+                      "primary": true
                     }
                   }
                 ]
-              },
-              "diagnosticsProfile": {
-                "bootDiagnostics": {
-                  "enabled": boolean,
-                  "storageUri": "string"
-                }
-              },
-              "availabilitySet": {
-                "id": "string"
-              },
-              "licenseType": "string"
-            },
-            "identity": {
-              "type": "string",
-              "userAssignedIdentities": {}
-            },
-            "zones": [
-              "string"
-            ],
-            "resources": []
+              }
+            }
           }
      ],
     "outputs": {  }

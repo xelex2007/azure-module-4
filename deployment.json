@@ -15,12 +15,7 @@
        "templateLink": {
           "uri":"https://raw.githubusercontent.com/xelex2007/azure-module-4/master/vnet.json",
           "contentVersion":"1.0.0.0"
-       },
-       "parametersLink": {
-          "uri":"https://raw.githubusercontent.com/xelex2007/azure-module-4/master/vnet_param.json",
-          "contentVersion":"1.0.0.0"
        }
-      
      }
   },
   {
@@ -33,6 +28,35 @@
      "templateLink": {
         "uri":"https://raw.githubusercontent.com/xelex2007/azure-module-4/master/key_vault.json",
         "contentVersion":"1.0.0.0"
+     },
+     "parameters" :{
+      "adminname" : {
+         "type" : "string"
+         
+     },
+      "adminpassword" : {
+         "type" : "securestring"
+         
+       }
+     }
+     
+   }
+}, {
+   "apiVersion": "2017-05-10",
+   "name": "linkedTemplatevmdeploy",
+   "dependsOn": [
+      "linkedTemplatekeyvault",
+      "linkedTemplatevnet"
+   ],
+   "type": "Microsoft.Resources/deployments",
+   "properties": {
+     "mode": "Incremental",
+     "templateLink": {
+        "uri":"https://raw.githubusercontent.com/xelex2007/azure-module-4/master/vm_deploy.json",
+        "contentVersion":"1.0.0.0"
+     },
+     "parameters" :{
+      
      }
      
    }

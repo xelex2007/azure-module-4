@@ -28,7 +28,8 @@
             "defaultvalue" : "admin2018"
         },
         "secretvalue" : {
-          "type" : "securestring"
+          "type" : "securestring",
+          "defaultvalue" : "asljkehfiouha34D"
         }
        
      },

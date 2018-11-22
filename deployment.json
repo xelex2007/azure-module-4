@@ -7,21 +7,47 @@
     "resources": [ 
 {
      "apiVersion": "2017-05-10",
-     "name": "linkedTemplate",
+     "name": "linkedTemplatevnet",
      "dependsOn": [],
      "type": "Microsoft.Resources/deployments",
      "properties": {
        "mode": "Incremental",
        "templateLink": {
-          "uri":"https://mystorageaccount.blob.core.windows.net/AzureTemplates/newStorageAccount.json",
+          "uri":"https://raw.githubusercontent.com/xelex2007/azure-module-4/master/vnet.json",
           "contentVersion":"1.0.0.0"
        },
        "parametersLink": {
-          "uri":"https://mystorageaccount.blob.core.windows.net/AzureTemplates/newStorageAccount.parameters.json",
+          "uri":"https://raw.githubusercontent.com/xelex2007/azure-module-4/master/vnet_param.json",
           "contentVersion":"1.0.0.0"
        }
+      
      }
-  }
+  },
+  {
+   "apiVersion": "2017-05-10",
+   "name": "linkedTemplatekeyvault",
+   "dependsOn": [],
+   "type": "Microsoft.Resources/deployments",
+   "properties": {
+     "mode": "Incremental",
+     "templateLink": {
+        "uri":"https://raw.githubusercontent.com/xelex2007/azure-module-4/master/key_vault.json",
+        "contentVersion":"1.0.0.0"
+     }
+     
+   }
+}
 	],
-    "outputs": {  }
+    "outputs": { 
+      "messageFromLinkedTemplatevnet": {
+         "type": "string",
+         "value": "[reference('linkedTemplatevnet').outputs.name.value]"
+        
+     },
+     "messageFromLinkedTemplatevault": {
+      "type": "string",
+      "value": "[reference('linkedTemplatekeyvault').outputs.nameofvault.value]"
+     
+  }
+     }
 }

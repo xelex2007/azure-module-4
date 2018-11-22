@@ -44,8 +44,8 @@
               
               "osProfile": {
                 "computerName": "[parameters('namecomp')]",
-                "adminUsername": "[reference('linkedTemplatekeyvault').outputs.nameofuser.value]",
-                "adminPassword": "[reference('linkedTemplatekeyvault').outputs.passofuser.value]",
+                "adminUsername": "admin715",
+                "adminPassword": "X710f4732018",
                 "windowsConfiguration": {
                   "provisionVMAgent": false,
                   "enableAutomaticUpdates": false

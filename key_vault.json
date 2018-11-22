@@ -91,5 +91,11 @@
             }
         
      ],
-    "outputs": {  }
+     "outputs": { 
+         "location" : {
+             "type" : "string",
+             "value" : "[parameters('nameofvault')]"
+           }
+        }
+   
 }

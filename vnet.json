@@ -3,7 +3,8 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "name": {
-            "type": "string"
+            "type": "string",
+            "defaultvalue" : "myvnet01"
             
         },
        
@@ -65,5 +66,12 @@
                 "enableDdosProtection": "[parameters('enableDdosProtection')]"
             }
         }
-    ]
+
+    ],
+    "outputs": { 
+        "location" : {
+            "type" : "string",
+            "value" : "[parameters('name')]"
+          }
+       }
 }

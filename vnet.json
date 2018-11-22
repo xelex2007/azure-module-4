@@ -69,7 +69,7 @@
 
     ],
     "outputs": { 
-        "location" : {
+        "name" : {
             "type" : "string",
             "value" : "[parameters('name')]"
           }

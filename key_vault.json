@@ -92,7 +92,7 @@
         
      ],
      "outputs": { 
-         "location" : {
+         "nameofvault" : {
              "type" : "string",
              "value" : "[parameters('nameofvault')]"
            }

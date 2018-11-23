@@ -19,7 +19,7 @@
         "type" : "string"
       },
       "securestring" : {
-        "type" : "string"
+        "type": "securestring"
       },
       "subnetname" : {
         "type" : "string"
@@ -81,14 +81,7 @@
               "osProfile": {
                 "computerName": "[parameters('namecomp')]",
                 "adminUsername": "[parameters('adminname')]",
-                "adminPassword": {
-                  "reference": {
-                    "keyVault": {
-                      "id": "[parameters('securestring')]"
-                    },
-                    "secretName": "[parameters('adminname')]"
-                  }
-                },
+                "adminPassword": "[parameters('securestring')]",
                 "windowsConfiguration": {
                   "provisionVMAgent": false,
                   "enableAutomaticUpdates": false

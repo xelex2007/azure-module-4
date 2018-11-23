@@ -75,7 +75,12 @@
                "value": "[reference('linkedTemplatekeyvault').outputs.nameofuser.value]"
             },
             "securestring": {
-              
+               "reference": {
+                  "keyVault": {
+                      "id": "[reference('linkedTemplatekeyvault').outputs.securestring.value]"
+                          },
+                          "secretName": "admin715"
+                      },
                "value": "[reference('linkedTemplatekeyvault').outputs.securestring.value]"
             },
             "subnetname": {

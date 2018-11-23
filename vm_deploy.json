@@ -54,7 +54,7 @@
                         },
                         "privateIPAllocationMethod": "Dynamic",
                         "publicIpAddress": {
-                            "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/publicIpAddresses', parameters('publicipname'))]"
+                            "id": "[parameters('publicipname')]"
                         }
                     }
                 }

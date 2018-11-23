@@ -99,7 +99,7 @@
         },
         "vnetname" : {
             "type" : "string",
-            "value" : "[parameters('name')]"
+            "value" : "[resourceId('Microsoft.Network/virtualNetworks', parameters('name'))]"
         },"subnetname" : {
             "type" : "string",
             "value" : "[parameters('subnetNameFront')]"

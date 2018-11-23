@@ -93,9 +93,13 @@
 
     ],
     "outputs": {
-        "resourceID": {
+        "publicipname": {
             "type": "string",
             "value": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicipaddressname'))]"
+        },
+        "vnetname" : {
+            "type" : "string",
+            "value" : "[parameters('name')]"
         }
     }
 }

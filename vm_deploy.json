@@ -5,7 +5,14 @@
       "namecomp" : {
         "type" : "string",
         "defaultvalue" : "proddb01"
+      },
+      "publicipname" : {
+        "type" : "string"
+      },
+      "vnetname" : {
+        "type" : "string"
       }
+
     },
     "variables": {  },
     "functions": [  ],
@@ -57,7 +64,7 @@
               "networkProfile": {
                 "networkInterfaces": [
                   {
-                    "id": "nic1",
+                    "id": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))",
                     "properties": {
                       "primary": true
                     }

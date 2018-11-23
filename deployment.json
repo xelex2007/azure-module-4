@@ -63,27 +63,27 @@
      },
      "parameters" :{
          "publicipname": {
-            "type": "string",
+           
             "value": "[reference('linkedTemplatevnet').outputs.publicipname.value]"
             },
             "vnetname": {
-               "type": "string",
+               
                "value": "[reference('linkedTemplatevnet').outputs.vnetname.value]"
             },
             "adminname": {
-               "type": "string",
+               
                "value": "[reference('linkedTemplatekeyvault').outputs.nameofuser.value]"
             },
             "securestring": {
-               "type": "string",
+              
                "value": "[reference('linkedTemplatekeyvault').outputs.securestring.value]"
             },
             "subnetname": {
-               "type": "string",
+               
                "value": "[reference('linkedTemplatevnet').outputs.subnetname.value]"
             },
             "nameofvault": {
-               "type": "string",
+              
                "value": "[reference('linkedTemplatekeyvault').outputs.nameofvault.value]"
             }
 

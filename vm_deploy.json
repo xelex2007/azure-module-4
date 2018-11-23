@@ -19,16 +19,8 @@
         "type" : "string"
       },
       "securestring" : {
-        "type" : "securestring"
+        "type" : "string"
       },
-      "adminpass" : {
-        "reference": {
-          "keyVault": {
-            "id": "[concat(parameters('securestring'),parameters('nameofvault'))]"
-          },
-          "secretName": "[parameters('adminname')]"
-        }
-    },
       "subnetname" : {
         "type" : "string"
       }
@@ -86,7 +78,14 @@
               "osProfile": {
                 "computerName": "[parameters('namecomp')]",
                 "adminUsername": "[parameters('adminname')]",
-                "adminPassword": "[parameters('adminpass')]",
+                "adminPassword": {
+                  "reference": {
+                    "keyVault": {
+                      "id": "[parameters('securestring')]"
+                    },
+                    "secretName": "[parameters('adminname')]"
+                  }
+                },
                 "windowsConfiguration": {
                   "provisionVMAgent": false,
                   "enableAutomaticUpdates": false

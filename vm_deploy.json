@@ -26,7 +26,10 @@
       }
 
     },
-    "variables": {  },
+    "variables": { 
+      "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('vnetname'))]",
+        "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
+     },
     "functions": [  ],
     "resources": [ 
         {
@@ -42,7 +45,7 @@
                     "name": "ipconfig1",
                     "properties": {
                         "subnet": {
-                            "id": "[parameters('subnetname')]"
+                            "id": "[variables('subnetRef')]"
                         },
                         "privateIPAllocationMethod": "Dynamic",
                         "publicIpAddress": {

@@ -1,7 +1,14 @@
 {
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {  },
+    "parameters": { 
+       "adminname" : {
+          "type" : "string"
+       },
+       "adminpass" : {
+         "type" : "securestring"
+       }
+     },
     "variables": {  },
     "functions": [  ],
     "resources": [ 
@@ -17,8 +24,7 @@
           "contentVersion":"1.0.0.0"
        }
      }
-  },
-  {
+  },{
    "apiVersion": "2017-05-10",
    "name": "linkedTemplatekeyvault",
    "dependsOn": [],
@@ -31,11 +37,11 @@
      },
      "parameters" :{
       "adminname" : {
-         "type" : "string"
+         "value" : "[parameters('adminname')]"
          
      },
       "adminpassword" : {
-         "type" : "securestring"
+         "value" : "[parameters('adminpass')]"
          
        }
      }
@@ -68,19 +74,24 @@
                "type": "string",
                "value": "[reference('linkedTemplatekeyvault').outputs.nameofuser.value]"
             },
-            "adminpass": {
+            "securestring": {
                "type": "string",
-               "value": "[reference('linkedTemplatekeyvault').outputs.passofuser.value]"
+               "value": "[reference('linkedTemplatekeyvault').outputs.securestring.value]"
             },
             "subnetname": {
                "type": "string",
                "value": "[reference('linkedTemplatevnet').outputs.subnetname.value]"
+            },
+            "nameofvault": {
+               "type": "string",
+               "value": "[reference('linkedTemplatekeyvault').outputs.nameofvault.value]"
             }
 
      }
      
    }
 }
+  
 	],
     "outputs": { 
       

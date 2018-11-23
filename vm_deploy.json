@@ -15,9 +15,20 @@
       "adminname" : {
         "type" : "string"
       },
-      "adminpass" : {
+      "nameofvault" : {
         "type" : "string"
       },
+      "securestring" : {
+        "type" : "securestring"
+      },
+      "adminpass" : {
+        "reference": {
+          "keyVault": {
+            "id": "[concat(parameters('securestring'),parameters('nameofvault'))]"
+          },
+          "secretName": "[parameters('adminname')]"
+        }
+    },
       "subnetname" : {
         "type" : "string"
       }

@@ -92,13 +92,17 @@
         
      ],
      "outputs": { 
-         "passofuser" : {
+         "securestring" : {
              "type" : "string",
              "value" : "[resourceId('Microsoft.KeyVault/vaults', parameters('nameofvault'))]"
            },
            "nameofuser" : {
               "type" : "string",
               "value" : "[parameters('adminname')]"
+           },
+           "nameofvault" : {
+            "type" : "string",
+            "value" : "[parameters('nameofvault')]"
            }
     }
    

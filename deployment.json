@@ -71,6 +71,10 @@
             "adminpass": {
                "type": "string",
                "value": "[reference('linkedTemplatekeyvault').outputs.passofuser.value]"
+            },
+            "subnetname": {
+               "type": "string",
+               "value": "[reference('linkedTemplatevnet').outputs.subnetname.value]"
             }
 
      }

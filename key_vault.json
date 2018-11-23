@@ -92,14 +92,14 @@
         
      ],
      "outputs": { 
-         "nameofuser" : {
+         "passofuser" : {
              "type" : "string",
-             "value" : "[resourceId('Microsoft.KeyVault/vaults/secrets', parameters('adminname'))]"
+             "value" : "[resourceId('Microsoft.KeyVault/vaults', parameters('nameofvault'))]"
            },
-           "passofuser" : {
-            "type" : "string",
-            "value" : "[resourceId('Microsoft.KeyVault/vaults/secrets', parameters('adminpassword'))]"
-          }
-        }
+           "nameofuser" : {
+              "type" : "string",
+              "value" : "[parameters('adminname')]"
+           }
+    }
    
 }

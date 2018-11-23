@@ -4,12 +4,21 @@
     "parameters": { 
       "namecomp" : {
         "type" : "string",
-        "defaultvalue" : "proddb01"
+        "defaultvalue" : "srviis01"
       },
       "publicipname" : {
         "type" : "string"
       },
       "vnetname" : {
+        "type" : "string"
+      },
+      "adminname" : {
+        "type" : "string"
+      },
+      "adminpass" : {
+        "type" : "string"
+      },
+      "subnetname" : {
         "type" : "string"
       }
 
@@ -25,6 +34,20 @@
             "tags": {},
             
             "properties": {
+              "ipConfigurations": [
+                {
+                    "name": "ipconfig1",
+                    "properties": {
+                        "subnet": {
+                            "id": "[parameters('subnetname')]"
+                        },
+                        "privateIPAllocationMethod": "Dynamic",
+                        "publicIpAddress": {
+                            "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/publicIpAddresses', parameters('publicipname'))]"
+                        }
+                    }
+                }
+            ],
               "hardwareProfile": {
                 "vmSize": "Standard_D2s_v3"
               },
@@ -51,8 +74,8 @@
               
               "osProfile": {
                 "computerName": "[parameters('namecomp')]",
-                "adminUsername": "admin715",
-                "adminPassword": "X710f4732018",
+                "adminUsername": "[parameters('adminname')]",
+                "adminPassword": "[parameters('adminpass')]",
                 "windowsConfiguration": {
                   "provisionVMAgent": false,
                   "enableAutomaticUpdates": false
@@ -64,7 +87,7 @@
               "networkProfile": {
                 "networkInterfaces": [
                   {
-                    "id": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))",
+                    "id": "[parameters('vnetname')]",
                     "properties": {
                       "primary": true
                     }

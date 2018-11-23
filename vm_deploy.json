@@ -27,7 +27,7 @@
 
     },
     "variables": { 
-      
+     
         "subnetRef": "[concat(parameters('vnetname'), '/subnets/', parameters('subnetName'))]"
      },
     "functions": [  ],

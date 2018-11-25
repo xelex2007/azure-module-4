@@ -1,107 +1,121 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": { 
-      "namecomp" : {
-        "type" : "string",
-        "defaultvalue" : "srviis01"
-      },
-      "publicipname" : {
-        "type" : "string"
-      },
-      "vnetname" : {
-        "type" : "string"
-      },
-      "adminname" : {
-        "type" : "string"
-      },
-      "nameofvault" : {
-        "type" : "string"
-      },
-      "securestring" : {
-        "type": "securestring"
-      },
-      "subnetname" : {
-        "type" : "string"
-      }
-
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": { 
+    "namecomp" : {
+      "type" : "string",
+      "defaultvalue" : "srviis01"
     },
-    "variables": { 
-     
-        "subnetRef": "[concat(parameters('vnetname'), '/subnets/', parameters('subnetName'))]"
-     },
-    "functions": [  ],
-    "resources": [ 
-        {
-            "name": "[parameters('namecomp')]",
-            "type": "Microsoft.Compute/virtualMachines",
-            "apiVersion": "2018-10-01",
-            "location": "[resourceGroup().location]",
-            "tags": {},
+    "publicipname" : {
+      "type" : "string"
+    },
+    "vnetname" : {
+      "type" : "string"
+    },
+    "adminname" : {
+      "type" : "string"
+    },
+    
+    "adminpassword" : {
+      "type": "string",
+      "defaultvalue" : "X710f473"
+    },
+    "subnetname" : {
+      "type" : "string"
+    },
+    "networkSecurityGroupName" : {
+      "type" : "string",
+      "defaultvalue" : "nsg01"
+    },
+    "location" : {
+      "type" : "string",
+      "defaultvalue" : "westeurope"
+    },
+    "networkSecurityGroupRules" : {
+      "type" : "string",
+      "defaultvalue" : "nsgrules01"
+    }
+  },
+  "variables": { 
+   
+      "subnetRef": "[concat(parameters('vnetname'), '/subnets/', parameters('subnetName'))]"
+   },
+  "functions": [  ],
+  "resources": [ 
+      {
+          "name": "[parameters('namecomp')]",
+          "type": "Microsoft.Compute/virtualMachines",
+          "apiVersion": "2018-10-01",
+          "location": "[resourceGroup().location]",
+          "tags": {},
+          
+          "properties": {
             
-            "properties": {
-              "ipConfigurations": [
-                {
-                    "name": "ipconfig1",
-                    "properties": {
-                        "subnet": {
-                            "id": "[variables('subnetRef')]"
-                        },
-                        "privateIPAllocationMethod": "Dynamic",
-                        "publicIpAddress": {
-                            "id": "[parameters('publicipname')]"
-                        }
-                    }
-                }
-            ],
-              "hardwareProfile": {
-                "vmSize": "Standard_D2s_v3"
-              },
-              "storageProfile": {
+            "hardwareProfile": {
+              "vmSize": "Standard_D2s_v3"
+            },
+            "storageProfile": {
+             
+              "osDisk": {
+                "osType": "Windows",
+                "createOption": "fromImage",
+                "name": "mydisk",
                
-                "osDisk": {
-                  "osType": "Windows",
-                  
-                  "name": "mydisk",
-                 
+                
+                "diskSizeGB": 50
+                
+              },
+              "dataDisks": [
+                {
+                  "lun": 1,
+                  "name": "disk1",
                   "createOption": "Attach",
                   "diskSizeGB": 50
-                  
-                },
-                "dataDisks": [
-                  {
-                    "lun": 1,
-                    "name": "disk1",
-                    "createOption": "Attach",
-                    "diskSizeGB": 50
-                  }
-                ]
-              },
-              
-              "osProfile": {
-                "computerName": "[parameters('namecomp')]",
-                "adminUsername": "[parameters('adminname')]",
-                "adminPassword": "[parameters('securestring')]",
-                "windowsConfiguration": {
-                  "provisionVMAgent": false,
-                  "enableAutomaticUpdates": false
                 }
-                
-               
+              ],
               
-              },
-              "networkProfile": {
-                "networkInterfaces": [
-                  {
-                    "id": "[parameters('vnetname')]",
-                    "properties": {
-                      "primary": true
-                    }
-                  }
-                ]
+            "imageReference": {
+                "publisher": "MicrosoftWindowsServer",
+                "offer": "WindowsServer",
+                "sku": "2016-Datacenter",
+                "version": "latest"
+            }
+            },
+            
+            "osProfile": {
+              "computerName": "[parameters('namecomp')]",
+              "adminUsername": "[parameters('adminname')]",
+              "adminPassword": "[parameters('adminpassword')]",
+              "windowsConfiguration": {
+                "provisionVMAgent": true,
+                "enableAutomaticUpdates": true
               }
+              
+             
+            
+            },
+            "networkProfile": {
+              "networkInterfaces": [
+                {
+                  "id": "[parameters('vnetname')]",
+                  "properties": {
+                    "primary": true
+                  }
+                }
+              ]
             }
           }
-     ],
-    "outputs": {  }
+      },
+      {
+        "name": "[parameters('networkSecurityGroupName')]",
+        "type": "Microsoft.Network/networkSecurityGroups",
+        "apiVersion": "2018-08-01",
+        "location": "[parameters('location')]",
+        "properties": {
+            "securityRules": "[parameters('networkSecurityGroupRules')]"
+        },
+        "tags": {}
+    }
+   ],
+  "outputs": {  }
 }

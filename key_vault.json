@@ -1,109 +1,109 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": { 
-        "nameofvault" : {
-            "type" : "string",
-            "defaultvalue" : "vault76"
-        },
-        "location" : {
-            "type" : "string",
-            "defaultvalue" : "westeurope"
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": { 
+      "nameofvault" : {
+          "type" : "string",
+          "defaultvalue" : "vault76"
+      },
+      "location" : {
+          "type" : "string",
+          "defaultvalue" : "westeurope"
+      },
+      
+      "tenantId" : {
+          "type" : "string",
+          "defaultvalue" : "a8175d3c-262d-4d5c-bbff-cdf43cd4918b"
+      },
+      "typekeyvault" : {
+          "type" : "string",
+          "defaultvalue" : "standard"
+      },
+      "userid" : {
+          "type" : "string",
+          "defaultvalue" : "c886c48d-fb25-41d2-95c4-690f63a28ed5"
+      },
+      "adminname" : {
+          "type" : "string"
+      },
+      "adminpassword" : {
+        "type" : "securestring"
+        
+      }
+     
+   },
+  "variables": {  },
+  "functions": [  ],
+  "resources": [ 
+      {
+          "name": "[parameters('nameofvault')]",
+          "type": "Microsoft.KeyVault/vaults",
+          "apiVersion": "2018-02-14",
+          "location": "[parameters('location')]",
+          "tags": {},
+          "properties": {
+            "tenantId": "[parameters('tenantId')]",
+            "sku": {
+              "family": "A",
+              "name": "[parameters('typekeyvault')]"
+            },
+            "accessPolicies": [
+              {
+                "tenantId": "[parameters('tenantId')]",
+                "objectId": "[parameters('userid')]",
+                "permissions": {
+                  "keys": [
+                    "all"
+                  ],
+                  "secrets": [
+                    "all"
+                  ],
+                  "certificates": [
+                    "all"
+                  ],
+                  "storage": [
+                    "all"
+                  ]
+                }
+              }
+            ]
+           
+          }
         },
         
-        "tenantId" : {
-            "type" : "string",
-            "defaultvalue" : "a8175d3c-262d-4d5c-bbff-cdf43cd4918b"
-        },
-        "typekeyvault" : {
-            "type" : "string",
-            "defaultvalue" : "standard"
-        },
-        "userid" : {
-            "type" : "string",
-            "defaultvalue" : "c886c48d-fb25-41d2-95c4-690f63a28ed5"
-        },
-        "adminname" : {
-            "type" : "string"
-        },
-        "adminpassword" : {
-          "type" : "securestring"
           
-        }
-       
-     },
-    "variables": {  },
-    "functions": [  ],
-    "resources": [ 
-        {
-            "name": "[parameters('nameofvault')]",
-            "type": "Microsoft.KeyVault/vaults",
-            "apiVersion": "2018-02-14",
-            "location": "[parameters('location')]",
-            "tags": {},
-            "properties": {
-              "tenantId": "[parameters('tenantId')]",
-              "sku": {
-                "family": "A",
-                "name": "[parameters('typekeyvault')]"
+            {
+              "name": "[concat(parameters('nameofvault'),'/',parameters('adminname'))]",
+              "type": "Microsoft.KeyVault/vaults/secrets",
+              "apiVersion": "2018-02-14",
+              "properties": {
+                "value": "[parameters('adminpassword')]",
+                
+                "attributes": {
+                "enabled": true
+                
               },
-              "accessPolicies": [
-                {
-                  "tenantId": "[parameters('tenantId')]",
-                  "objectId": "[parameters('userid')]",
-                  "permissions": {
-                    "keys": [
-                      "all"
-                    ],
-                    "secrets": [
-                      "all"
-                    ],
-                    "certificates": [
-                      "all"
-                    ],
-                    "storage": [
-                      "all"
-                    ]
-                  }
-                }
+              "dependsOn": [
+                "[parameters('nameofvault')]"
               ]
              
             }
-          },
-          
-            
-              {
-                "name": "[concat(parameters('nameofvault'),'/',parameters('adminname'))]",
-                "type": "Microsoft.KeyVault/vaults/secrets",
-                "apiVersion": "2018-02-14",
-                "properties": {
-                  "value": "[parameters('adminpassword')]",
-                  
-                  "attributes": {
-                  "enabled": true
-                  
-                },
-                "dependsOn": [
-                  "[parameters('nameofvault')]"
-                ]
-               
-              }
-            }
-        
-     ],
-     "outputs": { 
-         "securestring" : {
-             "type" : "string",
-             "value" : "[resourceId('Microsoft.KeyVault/vaults', parameters('nameofvault'))]"
-           },
-           "nameofuser" : {
-              "type" : "string",
-              "value" : "[parameters('adminname')]"
-           },
-           "nameofvault" : {
+          }
+      
+   ],
+   "outputs": { 
+       "vaultid" : {
+           "type" : "string",
+           "value" : "[resourceId('Microsoft.KeyVault/vaults', parameters('nameofvault'))]"
+         },
+         "username" : {
             "type" : "string",
-            "value" : "[parameters('nameofvault')]"
-           }
-    }
-   
+            "value" : "[parameters('adminname')]"
+         },
+         "vaultname" : {
+          "type" : "string",
+          "value" : "[parameters('nameofvault')]"
+         }
+  }
+ 
 }

@@ -45,7 +45,7 @@
         },
         "publicipaddressname" : {
             "type" : "string",
-            "defaultvalue" : "mypublicip"
+            "defaultvalue" : "mypublicip01"
         }
     },
     "resources": [
@@ -87,7 +87,11 @@
             "properties": {
               "publicIPAllocationMethod": "Dynamic",
               "publicIPAddressVersion": "IPv4"
+
             },
+          "sku": {
+              "name": "Basic"
+          },
             "dependson" : []
           }
 
@@ -95,14 +99,14 @@
     "outputs": {
         "publicipname": {
             "type": "string",
-            "value": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicipaddressname'))]"
-        },
-        "vnetname" : {
-            "type" : "string",
-            "value" : "[resourceId('Microsoft.Network/virtualNetworks', parameters('name'))]"
+            "value": "[parameters('publicipaddressname')]"
         },"subnetname" : {
             "type" : "string",
             "value" : "[parameters('subnetNameFront')]"
+        },
+        "vnetname" : {
+            "type" : "string",
+            "value" : "[parameters('name')]"
         }
     }
 }

@@ -62,20 +62,16 @@
        "contentVersion":"1.0.0.0"
     },
     "parameters" :{
-        "publicipname": {
+            "publicIpAddressName": {
           
            "value": "[reference('linkedTemplatevnet').outputs.publicipname.value]"
-           },
-           "vnetname": {
+            },
+           "virtualNetworkName": {
               
               "value": "[reference('linkedTemplatevnet').outputs.vnetname.value]"
            },
-           "adminname": {
-              
-              "value": "[reference('linkedTemplatekeyvault').outputs.username.value]"
-           },
            
-           "subnetname": {
+           "subnetName": {
               
               "value": "[reference('linkedTemplatevnet').outputs.subnetname.value]"
            }

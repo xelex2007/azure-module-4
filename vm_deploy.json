@@ -1,126 +1,221 @@
 {
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
-  "parameters": { 
-    "namecomp" : {
-      "type" : "string",
-      "defaultvalue" : "srviis01"
-    },
-    "publicipname" : {
-      "type" : "string"
-    },
-    "vnetname" : {
-      "type" : "string"
-    },
-    "adminname" : {
-      "type" : "string"
-    },
-    
-    "adminpassword" : {
-      "type": "string",
-      "defaultvalue" : "X710f473"
-    },
-    "subnetname" : {
-      "type" : "string"
-    },
-    "networkSecurityGroupName" : {
-      "type" : "string",
-      "defaultvalue" : "nsg01"
-    },
-    "location" : {
-      "type" : "string",
-      "defaultvalue" : "westeurope"
-    },
-    "networkSecurityGroupRules" : {
-      "type" : "string",
-      "defaultvalue" : "nsgrules01"
-    },
-    "storageaccountname" : {
-      "type" : "string",
-      "defaultvalue" : "mysqtorageaccount01"
-    }
-  },
-  "variables": { 
-   
-      "subnetRef": "[concat(parameters('vnetname'), '/subnets/', parameters('subnetName'))]"
-   },
-  "functions": [  ],
-  "resources": [ 
-      {
-          "name": "[parameters('namecomp')]",
-          "type": "Microsoft.Compute/virtualMachines",
-          "apiVersion": "2018-10-01",
-          "location": "[resourceGroup().location]",
-          "tags": {},
-          
-          "properties": {
-            
-            "hardwareProfile": {
-              "vmSize": "Standard_D2s_v3"
-            },
-            "storageProfile": {
-             
-              "osDisk": {
-                "osType": "Windows",
-                "createOption": "fromImage",
-                
-                "managedDisk": {
-                  "id" : "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageaccountname'))]",
-                  "storageAccountType": "Standard_LRS"
-              }
-                
-              },
-              "dataDisks": [
-                {
-                  "lun": 1,
-                  "name": "disk1",
-                  "createOption": "Attach",
-                  "diskSizeGB": 50
+  "parameters": {
+      "location": {
+          "type": "string",
+          "defaultvalue" : "westeurope"
+      },
+      "networkInterfaceName": {
+          "type": "string",
+          "defaultvalue": "srviis01255"
+      },
+      "networkSecurityGroupName": {
+          "type": "string",
+          "defaultvalue": "srviis01-nsg"
+      },
+      "networkSecurityGroupRules": {
+          "type": "array",
+          "defaultvalue": [
+            {
+                "name": "default-allow-rdp",
+                "properties": {
+                    "priority": 1000,
+                    "protocol": "TCP",
+                    "access": "Allow",
+                    "direction": "Inbound",
+                    "sourceApplicationSecurityGroups": [],
+                    "destinationApplicationSecurityGroups": [],
+                    "sourceAddressPrefix": "*",
+                    "sourcePortRange": "*",
+                    "destinationAddressPrefix": "*",
+                    "destinationPortRange": "3389"
                 }
-              ],
-              
-            "imageReference": {
-                "publisher": "MicrosoftWindowsServer",
-                "offer": "WindowsServer",
-                "sku": "2016-Datacenter",
-                "version": "latest"
-            }
             },
-            
-            "osProfile": {
-              "computerName": "[parameters('namecomp')]",
-              "adminUsername": "[parameters('adminname')]",
-              "adminPassword": "[parameters('adminpassword')]",
-              "windowsConfiguration": {
-                "provisionVMAgent": true,
-                "enableAutomaticUpdates": true
+            {
+              "name": "default-allow-alt-proxy",
+              "properties": {
+                  "priority": 1000,
+                  "protocol": "TCP",
+                  "access": "Allow",
+                  "direction": "Inbound",
+                  "sourceApplicationSecurityGroups": [],
+                  "destinationApplicationSecurityGroups": [],
+                  "sourceAddressPrefix": "*",
+                  "sourcePortRange": "*",
+                  "destinationAddressPrefix": "*",
+                  "destinationPortRange": "8080"
               }
-              
-             
-            
-            },
-            "networkProfile": {
-              "networkInterfaces": [
-                {
-                  "id": "[parameters('vnetname')]",
-                  "properties": {
-                    "primary": true
-                  }
-                }
-              ]
-            }
           }
+        ]
+      },
+      "subnetName": {
+          "type": "string"
+          
+      },
+      "virtualNetworkName": {
+          "type": "string"
+         
+      },
+      
+     
+      "publicIpAddressName": {
+          "type": "string"
+         
+      },
+      
+     
+      "virtualMachineName": {
+          "type": "string",
+          "defaultvalue": "srviis01"
+      },
+      "virtualMachineRG": {
+          "type": "string",
+          "defaultvalue": "testrg"
+      },
+      "diskNameSalt": {
+          "type": "string",
+          "defaultvalue": "20181125153656"
+      },
+      "storageAccountName": {
+          "type": "string",
+          "defaultvalue": "testrgdisks655"
+      },
+      "storageAccountType": {
+          "type": "string",
+          "defaultvalue": "Standard_LRS"
+      },
+      "storageAccountKind": {
+          "type": "string",
+          "defaultvalue": "Storage"
+      },
+      "virtualMachineSize": {
+          "type": "string",
+          "defaultvalue": "Standard_DS1_v2"
+      },
+      "adminUsername": {
+          "type": "string",
+          "defaultvalue": "admin715"
+      },
+      "adminPassword": {
+          "type": "string",
+          "defaultvalue" : "X710f4732018"
+      }
+  },
+  "variables": {
+      "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
+      "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+      "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
+      "storageContainerUri": "[concat(concat('https://', parameters('storageAccountName'), '.blob.core.windows.net/'), 'vhds/')]"
+  },
+  "resources": [
+      {
+          "name": "[parameters('networkInterfaceName')]",
+          "type": "Microsoft.Network/networkInterfaces",
+          "apiVersion": "2018-04-01",
+          "location": "[parameters('location')]",
+          "dependsOn": [
+              "[concat('Microsoft.Network/networkSecurityGroups/', parameters('networkSecurityGroupName'))]",
+              "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]",
+              "[concat('Microsoft.Network/publicIpAddresses/', parameters('publicIpAddressName'))]"
+          ],
+          "properties": {
+              "ipConfigurations": [
+                  {
+                      "name": "ipconfig1",
+                      "properties": {
+                          "subnet": {
+                              "id": "[variables('subnetRef')]"
+                          },
+                          "privateIPAllocationMethod": "Dynamic",
+                          "publicIpAddress": {
+                              "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/publicIpAddresses', parameters('publicIpAddressName'))]"
+                          }
+                      }
+                  }
+              ],
+              "networkSecurityGroup": {
+                  "id": "[variables('nsgId')]"
+              }
+          },
+          "tags": {}
       },
       {
-        "name": "[parameters('networkSecurityGroupName')]",
-        "type": "Microsoft.Network/networkSecurityGroups",
-        "apiVersion": "2018-08-01",
-        "location": "[parameters('location')]",
-        "properties": {
-            "securityRules": "[parameters('networkSecurityGroupRules')]"
-        },
-        "tags": {}
-    }
-   ],
-  "outputs": {  }
+          "name": "[parameters('networkSecurityGroupName')]",
+          "type": "Microsoft.Network/networkSecurityGroups",
+          "apiVersion": "2018-08-01",
+          "location": "[parameters('location')]",
+          "properties": {
+              "securityRules": "[parameters('networkSecurityGroupRules')]"
+          },
+          "tags": {}
+      },
+      
+     
+      {
+          "name": "[parameters('storageAccountName')]",
+          "type": "Microsoft.Storage/storageAccounts",
+          "apiVersion": "2018-07-01",
+          "location": "[parameters('location')]",
+          "properties": {},
+          "kind": "[parameters('storageAccountKind')]",
+          "sku": {
+              "name": "[parameters('storageAccountType')]"
+          },
+          "tags": {}
+      },
+      {
+          "name": "[parameters('virtualMachineName')]",
+          "type": "Microsoft.Compute/virtualMachines",
+          "apiVersion": "2018-06-01",
+          "location": "[parameters('location')]",
+          "dependsOn": [
+              "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
+              "[concat('Microsoft.Network/networkInterfaces/', parameters('networkInterfaceName'))]"
+          ],
+          "properties": {
+              "hardwareProfile": {
+                  "vmSize": "[parameters('virtualMachineSize')]"
+              },
+              "storageProfile": {
+                  "osDisk": {
+                      "createOption": "fromImage",
+                      "vhd": {
+                          "uri": "[concat(variables('storageContainerUri'), parameters('virtualMachineName'), parameters('diskNameSalt'), '.vhd')]"
+                      },
+                      "name": "[parameters('virtualMachineName')]"
+                  },
+                  "imageReference": {
+                      "publisher": "MicrosoftWindowsServer",
+                      "offer": "WindowsServer",
+                      "sku": "2016-Datacenter",
+                      "version": "latest"
+                  }
+              },
+              "networkProfile": {
+                  "networkInterfaces": [
+                      {
+                          "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaceName'))]"
+                      }
+                  ]
+              },
+              "osProfile": {
+                  "computerName": "[parameters('virtualMachineName')]",
+                  "adminUsername": "[parameters('adminUsername')]",
+                  "adminPassword": "[parameters('adminPassword')]",
+                  "windowsConfiguration": {
+                      "enableAutomaticUpdates": true,
+                      "provisionVmAgent": true
+                  }
+              }
+          },
+          "tags": {}
+      }
+  ],
+  "outputs": {
+      "adminUsername": {
+          "type": "string",
+          "value": "[parameters('adminUsername')]"
+      }
+  }
 }

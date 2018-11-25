@@ -34,11 +34,16 @@
     "networkSecurityGroupRules" : {
       "type" : "string",
       "defaultvalue" : "nsgrules01"
+    },
+    "storageaccountname" : {
+      "type" : "string",
+      "defaultvalue" : "mysqtorageaccount01"
     }
   },
   "variables": { 
    
-      "subnetRef": "[concat(parameters('vnetname'), '/subnets/', parameters('subnetName'))]"
+      "subnetRef": "[concat(parameters('vnetname'), '/subnets/', parameters('subnetName'))]",
+      "storageid" : 
    },
   "functions": [  ],
   "resources": [ 
@@ -61,10 +66,9 @@
                 "createOption": "fromImage",
                 
                 "managedDisk": {
-                 
+                  "id" : "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageaccountname'))]",
                   "storageAccountType": "Standard_LRS"
-                }
-                
+              }
                 
               },
               "dataDisks": [

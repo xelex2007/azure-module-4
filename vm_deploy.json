@@ -59,10 +59,7 @@
               "osDisk": {
                 "osType": "Windows",
                 "createOption": "fromImage",
-                "name": "mydisk",
-               
                 
-                "diskSizeGB": 50,
                 "managedDisk": {
                  
                   "storageAccountType": "Standard_LRS"

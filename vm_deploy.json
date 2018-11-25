@@ -34,6 +34,10 @@
     "networkSecurityGroupRules" : {
       "type" : "string",
       "defaultvalue" : "nsgrules01"
+    },
+    "storageaccountname" : {
+      "type" : "string",
+      "defaultvalue" : "mysqtorageaccount01"
     }
   },
   "variables": { 
@@ -62,7 +66,12 @@
                 "name": "mydisk",
                
                 
-                "diskSizeGB": 50
+                "diskSizeGB": 50,
+                "managedDisk": {
+                  "id": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageaccountname'))]",
+                  "storageAccountType": "Standard_LRS"
+                }
+                
                 
               },
               "dataDisks": [

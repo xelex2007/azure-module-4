@@ -6,13 +6,29 @@
             "value": "eastus"
         },
         "networkInterfaceName": {
-            "value": "testsrv456"
+            "value": "srviis01255"
         },
         "networkSecurityGroupName": {
-            "value": "testsrv-nsg"
+            "value": "srviis01-nsg"
         },
         "networkSecurityGroupRules": {
-            "value": []
+            "value": [
+                {
+                    "name": "default-allow-rdp",
+                    "properties": {
+                        "priority": 1000,
+                        "protocol": "TCP",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourceApplicationSecurityGroups": [],
+                        "destinationApplicationSecurityGroups": [],
+                        "sourceAddressPrefix": "*",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*",
+                        "destinationPortRange": "3389"
+                    }
+                }
+            ]
         },
         "subnetName": {
             "value": "default"
@@ -36,7 +52,7 @@
             ]
         },
         "publicIpAddressName": {
-            "value": "testsrv-ip"
+            "value": "srviis01-ip"
         },
         "publicIpAddressType": {
             "value": "Dynamic"
@@ -45,13 +61,22 @@
             "value": "Basic"
         },
         "virtualMachineName": {
-            "value": "testsrv"
+            "value": "srviis01"
         },
         "virtualMachineRG": {
             "value": "testrg"
         },
-        "osDiskType": {
+        "diskNameSalt": {
+            "value": "20181125153656"
+        },
+        "storageAccountName": {
+            "value": "testrgdisks655"
+        },
+        "storageAccountType": {
             "value": "Standard_LRS"
+        },
+        "storageAccountKind": {
+            "value": "Storage"
         },
         "virtualMachineSize": {
             "value": "Standard_DS1_v2"

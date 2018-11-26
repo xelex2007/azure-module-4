@@ -213,7 +213,7 @@
                 "location": "[resourceGroup().location]",
                 "apiVersion": "2018-10-01",
                 "dependsOn": [
-                    "[resourceId('Microsoft.Compute/virtualMachines', concat(parameters('virtualMachineName')))]"
+                    "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachineName'))]"
                 ],
                 "tags": {
                     "displayName": "IIS"

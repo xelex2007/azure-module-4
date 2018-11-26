@@ -206,7 +206,7 @@
               }
           },
           "tags": {},
-          "resource" : [
+          "resources" : [
             {
                 "name": "Microsoft.Powershell.DSC",
                 "type": "extensions",

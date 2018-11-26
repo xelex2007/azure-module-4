@@ -83,7 +83,8 @@
     "nicName": "dscNIC",
     "imagePublisher": "MicrosoftWindowsServer",
     "imageOffer": "WindowsServer",
-    "vmExtensionName": "dscExtension"
+    "vmExtensionName": "dscExtension",
+    "nsg" : "nsg01"
   },
   "resources": [
     {
@@ -124,7 +125,7 @@
       "dependsOn": [
         "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]",
         "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
-          "[concat('Microsoft.Network/networkSecurityGroups/', '/nsg01')]"
+          "[concat('Microsoft.Network/networkSecurityGroups/', variables('nsg'))]"
          
          
       ],
@@ -144,7 +145,7 @@
           }
         ],
         "networkSecurityGroup": {
-          "id": "[resourceid('Microsoft.Network/networkSecurityGroups', '/nsg01')]"
+          "id": "[resourceid('Microsoft.Network/networkSecurityGroups', variables('nsg'))]"
       }
       }
     },
@@ -214,7 +215,7 @@
       }
     },
     {
-      "name": "nsg01",
+      "name": "[variables('nsg')]",
       "type": "Microsoft.Network/networkSecurityGroups",
       "apiVersion": "2018-08-01",
       "location": "[parameters('location')]",

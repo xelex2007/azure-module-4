@@ -229,13 +229,11 @@
                     "Properties": {
                                     "MachineName": "[parameters('virtualMachineName')]"
                                     }
-                  }
-                },
-                "protectedSettings": {
-                
-                    }
+                  },
+                   "protectedSettings": null
                 }
-              
+               
+                }
             
           ]
       }

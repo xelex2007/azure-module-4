@@ -55,7 +55,7 @@
     },
     "modulesUrl": {
       "type": "string",
-      "defaultvalue": "https://github.com/Azure/azure-quickstart-templates/raw/master/dsc-extension-iis-server-windows-vm/ContosoWebsite.ps1.zip",
+      "defaultvalue": "https://github.com/xelex2007/azure-module-4/raw/master/ContosoWebsite.ps1.zip",
       "metadata": {
         "description": "URL for the DSC configuration module. NOTE: Can be a Github url(raw) to the zip file"
       }

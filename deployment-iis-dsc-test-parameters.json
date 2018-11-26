@@ -15,10 +15,10 @@
             "value": "2012-R2-Datacenter"
         },
         "adminUsername": {
-            "value": "GEN-UNIQUE"
+            "value": "admin716"
         },
         "adminPassword": {
-            "value": "GEN-PASSWORD"
+            "value": "X710f4732018"
         },
         "modulesUrl": {
             "value": "https://github.com/Azure/azure-quickstart-templates/raw/master/dsc-extension-iis-server-windows-vm/ContosoWebsite.ps1.zip"

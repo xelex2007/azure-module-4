@@ -226,7 +226,7 @@
                 "settings": {
                   "wmfVersion": "latest",
                   "configuration": {
-                    "url": "https://github.com/xelex2007/azure-module-4/blob/master/iis.ps1.zip",
+                    "url": "https://github.com/xelex2007/azure-module-4/raw/master/iis.ps1.zip",
                     "script": "iis.ps1",
                     "function": "main"
                   },

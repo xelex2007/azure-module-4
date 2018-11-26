@@ -124,7 +124,7 @@
       "dependsOn": [
         "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]",
         "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
-          "[concat('Microsoft.Network/networkSecurityGroups/', 'nsg01')]"
+          "[concat('Microsoft.Network/networkSecurityGroups/', '/nsg01')]"
          
          
       ],
@@ -144,7 +144,7 @@
           }
         ],
         "networkSecurityGroup": {
-          "id": "[concat('Microsoft.Network/networkSecurityGroups', 'nsg01')]"
+          "id": "[concat('Microsoft.Network/networkSecurityGroups', '/nsg01')]"
       }
       }
     },

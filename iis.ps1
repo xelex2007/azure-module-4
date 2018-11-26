@@ -1,7 +1,7 @@
 Configuration Main
 {
  
-Param ( [string] $nodeName = localhost )
+Param ( [string] $nodeName = "localhost" )
  
 Import-DscResource -ModuleName PSDesiredStateConfiguration
  

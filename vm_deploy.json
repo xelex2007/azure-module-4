@@ -212,7 +212,7 @@
           ]
       },
       {
-        "name": "[concat(parameters('virtualMachineName'),'IIS')]",
+        "name": "[concat(parameters('virtualMachineName'),'/IIS')]",
         "type": "Microsoft.Compute/virtualMachines/extensions",
         "location": "[resourceGroup().location]",
         "apiVersion": "2018-04-01",

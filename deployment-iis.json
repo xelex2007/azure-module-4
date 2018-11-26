@@ -1,0 +1,90 @@
+{
+   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+   "contentVersion": "1.0.0.0",
+   "parameters": { 
+      "adminname" : {
+         "type" : "string",
+         "defaultvalue" : "admin715"
+      },
+      "adminpass" : {
+        "type" : "string",
+        "defaultvalue" : "X710f4732018"
+      }
+    },
+   "variables": {  },
+   "functions": [  ],
+   "resources": [ 
+{
+    "apiVersion": "2017-05-10",
+    "name": "linkedTemplatevnet",
+    "dependsOn": [],
+    "type": "Microsoft.Resources/deployments",
+    "properties": {
+      "mode": "Incremental",
+      "templateLink": {
+         "uri":"https://raw.githubusercontent.com/xelex2007/azure-module-4/master/vnet.json",
+         "contentVersion":"1.0.0.0"
+      }
+    }
+ },{
+  "apiVersion": "2017-05-10",
+  "name": "linkedTemplatekeyvault",
+  "dependsOn": [],
+  "type": "Microsoft.Resources/deployments",
+  "properties": {
+    "mode": "Incremental",
+    "templateLink": {
+       "uri":"https://raw.githubusercontent.com/xelex2007/azure-module-4/master/key_vault.json",
+       "contentVersion":"1.0.0.0"
+    },
+    "parameters" :{
+     "adminname" : {
+        "value" : "[parameters('adminname')]"
+        
+    },
+     "adminpassword" : {
+        "value" : "[parameters('adminpass')]"
+        
+      }
+    }
+    
+  }
+}, {
+  "apiVersion": "2017-05-10",
+  "name": "linkedTemplatevmdeploy",
+  "dependsOn": [
+     "linkedTemplatekeyvault",
+     "linkedTemplatevnet"
+  ],
+  "type": "Microsoft.Resources/deployments",
+  "properties": {
+    "mode": "Incremental",
+    "templateLink": {
+       "uri":"https://raw.githubusercontent.com/xelex2007/azure-module-4/master/vm_deploy.json",
+       "contentVersion":"1.0.0.0"
+    },
+    "parameters" :{
+            "publicIpAddressName": {
+          
+           "value": "[reference('linkedTemplatevnet').outputs.publicipname.value]"
+            },
+           "virtualNetworkName": {
+              
+              "value": "[reference('linkedTemplatevnet').outputs.vnetname.value]"
+           },
+           
+           "subnetName": {
+              
+              "value": "[reference('linkedTemplatevnet').outputs.subnetname.value]"
+           }
+
+    }
+    
+  }
+}
+ 
+  ],
+   "outputs": { 
+     
+    }
+}

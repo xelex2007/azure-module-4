@@ -211,13 +211,10 @@
                 "name": "[concat(parameters('virtualMachineName'),'/Microsoft.Powershell.DSC')]",
                 "type": "Microsoft.Compute/virtualMachines/extensions",
                 "location": "[resourceGroup().location]",
-                "apiVersion": "2018-04-01",
+                "apiVersion": "2015-05-01-preview",
                 "dependsOn": [
                     "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachineName'))]"
                 ],
-                "tags": {
-                    "displayName": "IIS"
-                },
               "properties": {
                 "publisher": "Microsoft.Powershell",
                 "type": "DSC",

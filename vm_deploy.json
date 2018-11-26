@@ -224,26 +224,19 @@
                 "typeHandlerVersion": "2.76",
                 "autoUpgradeMinorVersion": true,
                 "settings": {
-                  "wmfVersion": "latest",
-                  "configuration": {
-                    "url": "https://github.com/xelex2007/azure-module-4/raw/master/iis.ps1.zip",
-                    "script": "iis.ps1",
-                    "function": "main"
-                  },
-                  "ConfigurationArguments": {
-                    "nodename": "[parameters('virtualMachineName')]"
+                    "ModulesUrl": "https://github.com/xelex2007/azure-module-4/raw/master/iis.ps1.zip",
+                    "ConfigurationFunction": "iis.ps1\\main",
+                    "Properties": {
+                                    "MachineName": "[parameters('virtualMachineName')]"
+                                    }
                   }
                 },
                 "protectedSettings": {
-                    "configurationArguments": {
-                        "parameterOfTypePSCredential1": {
-                            "userName": "admin715",
-                            "password": "X710f4732018"
-                        }
+                
                     }
                 }
-              }
-            }
+              
+            
           ]
       }
       

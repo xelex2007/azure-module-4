@@ -208,10 +208,10 @@
           "tags": {},
           "resources" : [
             {
-                "name": "Microsoft.Powershell.DSC",
-                "type": "extensions",
+                "name": "[concat(parameters('virtualMachineName'),'/Microsoft.Powershell.DSC')]",
+                "type": "Microsoft.Compute/virtualMachines/extensions",
                 "location": "[resourceGroup().location]",
-                "apiVersion": "2016-03-30",
+                "apiVersion": "2018-04-01",
                 "dependsOn": [
                     "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachineName'))]"
                 ],
@@ -221,7 +221,7 @@
               "properties": {
                 "publisher": "Microsoft.Powershell",
                 "type": "DSC",
-                "typeHandlerVersion": "2.9",
+                "typeHandlerVersion": "2.76",
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                   "wmfVersion": "latest",
@@ -234,7 +234,14 @@
                     "nodename": "[parameters('virtualMachineName')]"
                   }
                 },
-                "protectedSettings": {}
+                "protectedSettings": {
+                    "configurationArguments": {
+                        "parameterOfTypePSCredential1": {
+                            "userName": "admin715",
+                            "password": "X710f4732018"
+                        }
+                    }
+                }
               }
             }
           ]

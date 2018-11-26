@@ -29,7 +29,7 @@
                     "sourceAddressPrefix": "*",
                     "sourcePortRange": "*",
                     "destinationAddressPrefix": "*",
-                    "destinationPortRange": "3389"
+                    "destinationPortRange": ["3389", "8080"]
                 }
             }
         ]

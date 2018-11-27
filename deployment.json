@@ -3,12 +3,11 @@
    "contentVersion": "1.0.0.0",
    "parameters": { 
       "adminname" : {
-         "type" : "string",
-         "defaultvalue" : "admin715"
+         "type" : "string"
+      
       },
-      "adminpass" : {
-        "type" : "string",
-        "defaultvalue" : "X710f4732018"
+      "adminpassword" : {
+        "type" : "securestring"
       }
     },
    "variables": {  },
@@ -43,7 +42,7 @@
         
     },
      "adminpassword" : {
-        "value" : "[parameters('adminpass')]"
+        "value" : "[parameters('adminpassword')]"
         
       }
     }

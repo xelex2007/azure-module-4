@@ -84,7 +84,8 @@
                 
               },
               "dependsOn": [
-                "[parameters('nameofvault')]"
+                
+                "[concat('Microsoft.KeyVault/vaults', parameters('nameofvault'))]"
               ]
              
             }

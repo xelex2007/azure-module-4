@@ -210,31 +210,7 @@
             
             
           ]
-      },
-      {
-        "name": "[concat(parameters('virtualMachineName'),'/IIS')]",
-        "type": "Microsoft.Compute/virtualMachines/extensions",
-        "location": "[resourceGroup().location]",
-        "apiVersion": "2018-04-01",
-        "dependsOn": [
-            "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachineName'))]"
-        ],
-      "properties": {
-        "publisher": "Microsoft.Powershell",
-        "type": "DSC",
-        "typeHandlerVersion": "2.76",
-        "autoUpgradeMinorVersion": true,
-        "settings": {
-            "ModulesUrl": "https://github.com/xelex2007/azure-module-4/raw/master/iis.ps1.zip",
-            "ConfigurationFunction": "iis.ps1\\main",
-            "Properties": {
-                            "nodename": "[parameters('virtualMachineName')]"
-                            }
-          },
-           "protectedSettings": null
-        }
-       
-        }
+      }
       
   ],
   "outputs": {

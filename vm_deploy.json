@@ -212,23 +212,23 @@
           ]
       },
       {
-        "name": "[concat(parameters('virtualMachineName'),'/Microsoft.Powershell.DSC')]",
+        "name": "[concat('srviis01','/Microsoft.Powershell.DSC')]",
         "type": "Microsoft.Compute/virtualMachines/extensions",
         "location": "[resourceGroup().location]",
-        "apiVersion": "2016-03-30",
+        "apiVersion": "2018-04-01",
         "dependsOn": [
             "srviis01"
         ],
         "properties": {
             "publisher": "Microsoft.Powershell",
             "type": "DSC",
-            "typeHandlerVersion": "2.70",
+            "typeHandlerVersion": "2.76",
             "autoUpgradeMinorVersion": true,
             
             "settings": {
                 "configuration": {
                     "url": "https://github.com/xelex2007/azure-module-4/raw/master/iis.ps1.zip",
-                    "script": "./iis.ps1",
+                    "script": "iis.ps1",
                     "function": "main"
                 }
             },

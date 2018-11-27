@@ -3,7 +3,9 @@
  
 Param ( [string] $nodeName = "$env:computername" )
  
-Import-DscResource -ModuleName PSDesiredStateConfiguration, xWebAdministration, xNetworking
+Import-DscResource -ModuleName PSDesiredStateConfiguration
+Import-DscResource -ModuleName xWebAdministration
+Import-DscResource -ModuleName xNetworking
  
 Node $nodeName
   {

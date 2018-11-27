@@ -212,17 +212,17 @@
           ]
       },
       {
-        "name": "[concat('srviis01','/Microsoft.Powershell.DSC')]",
+        "name": "[concat(parameters('virtualMachineName'),'/Microsoft.Powershell.DSC')]",
         "type": "Microsoft.Compute/virtualMachines/extensions",
         "location": "[resourceGroup().location]",
-        "apiVersion": "2018-04-01",
+        "apiVersion": "2016-03-30",
         "dependsOn": [
-            "srviis01"
+            "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
         ],
         "properties": {
             "publisher": "Microsoft.Powershell",
             "type": "DSC",
-            "typeHandlerVersion": "2.76",
+            "typeHandlerVersion": "2.70",
             "autoUpgradeMinorVersion": true,
             
             "settings": {

@@ -94,9 +94,17 @@
           "defaultvalue": "admin715"
       },
       "adminPassword": {
-          "type": "string",
-          "defaultvalue" : "X710f4732018"
-      }
+        "reference": {
+            "keyVault": {
+              "id": "[parameters('vaultid')]"
+            },
+            "secretName": "admin715"
+          }
+      },
+      "vaultid": {
+        "type": "string"
+        }
+        
   },
   "variables": {
       "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",

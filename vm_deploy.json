@@ -98,7 +98,7 @@
             "keyVault": {
               "id": "[parameters('vaultid')]"
             },
-            "secretName": "admin715"
+            "secretName": "[parameters('adminusername')]"
           }
       },
       "vaultid": {

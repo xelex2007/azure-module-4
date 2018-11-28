@@ -98,14 +98,11 @@
             "keyVault": {
               "id": "/subscriptions/708ced4f-804f-4c53-856a-04cc7e2c75c1/resourceGroups/testrg/providers/Microsoft.KeyVault/vaults/vault76"
             },
-            "secretName": "admin715"
+            "secretName": "admin715",
+            "secretVersion": "1f137c21f7d44323b4ea9cbd4b5fe766"
           },
           "type" : "securestring"
-      },
-      "vaultid": {
-        "type": "string"
-        }
-        
+      }
   },
   "variables": {
       "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",

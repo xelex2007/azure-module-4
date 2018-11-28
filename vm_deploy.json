@@ -93,13 +93,14 @@
           "type": "string",
           "defaultvalue": "admin715"
       },
-      "adminPassword": {
+      "adminpassword": {
         "reference": {
             "keyVault": {
               "id": "/subscriptions/708ced4f-804f-4c53-856a-04cc7e2c75c1/resourceGroups/testrg/providers/Microsoft.KeyVault/vaults/vault76"
             },
             "secretName": "admin715"
-          }
+          },
+          "type" : "securestring"
       },
       "vaultid": {
         "type": "string"
@@ -206,7 +207,7 @@
               "osProfile": {
                   "computerName": "[parameters('virtualMachineName')]",
                   "adminUsername": "[parameters('adminUsername')]",
-                  "adminPassword": "[parameters('adminPassword')]",
+                  "adminPassword": "[parameters('adminpassword')]",
                   "windowsConfiguration": {
                       "enableAutomaticUpdates": true,
                       "provisionVmAgent": true

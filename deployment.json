@@ -79,6 +79,15 @@
            "vaultid": {
               
             "value": "[reference('linkedTemplatekeyvault').outputs.vaultid.value]"
+         },
+         "adminpassword" : {
+         "reference": {
+            "keyVault": {
+              "id": "/subscriptions/708ced4f-804f-4c53-856a-04cc7e2c75c1/resourceGroups/testrg/providers/Microsoft.KeyVault/vaults/vault76"
+            },
+            "secretName": "admin715"
+            
+          }
          }
 
     }

@@ -75,10 +75,7 @@
            "subnetName": {
               
               "value": "[reference('linkedTemplatevnet').outputs.subnetname.value]"
-           },
-           "vaultid": {
-              
-            "value": "[reference('linkedTemplatekeyvault').outputs.vaultid.value]"
+           }
          },
          "adminpassword" : {
          "reference": {

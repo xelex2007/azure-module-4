@@ -96,7 +96,7 @@
       "adminPassword": {
         "reference": {
             "keyVault": {
-              "id": "[parameters('vaultid')]"
+              "id": "[resourceId('Microsoft.KeyVault/vaults', 'vault76')]"
             },
             "secretName": "[parameters('adminusername')]"
           }
